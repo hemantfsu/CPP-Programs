@@ -1,0 +1,96 @@
+// program is about linked list , practice about inserting node at head or trail and printing them.
+
+#include<iostream>
+using namespace std;
+
+// make a class
+class Node{
+    public:
+    int data;
+    Node* next=NULL;
+    
+    // constructor
+    Node(int val){
+        data=val;
+        next=NULL;
+    }
+};
+
+void insertathead(Node* &head,Node* &tail, int data){
+    // handling empty LL case
+    if(head==NULL){
+        Node* newnode= new Node(data);
+        head=newnode;
+        tail=newnode;
+        // if using method 2, use return ; here
+    }
+    // method 1 you can try or method 2.
+    // method 1 for easy understandance
+    else{
+        // step 1:
+    Node* newnode = new Node(data);
+    // step 2:
+    newnode->next=head;
+    // step 3:
+    // check condition for tail
+    head=newnode;
+    }
+    // this is the second method use without else
+    // step 1:
+    // Node* newnode = new Node(data);
+    // // step 2:
+    // newnode->next=head;
+    // // step 3:
+    // // check condition for tail
+    // head=newnode;
+}
+
+void insertattail(Node* &head,Node* &tail, int data){
+    // handling LL Empty case
+    if(head==NULL){
+        Node* newnode= new Node(data);
+        head=newnode;
+        tail=newnode;
+        // if using method 2, use return ; here
+    }
+    // method 1 you can try or method 2.
+    // method 1 for easy understandance
+    else{
+        // step 1: make a node
+    Node* newnode= new Node(data);
+    // step 2: connect with tail
+     tail->next=newnode;   
+    // step 3: update tail
+    tail=newnode;
+    }
+    
+    // this is the second method use without else
+    // // step 1: make a node
+    // Node* newnode= new Node(data);
+    // // step 2: connect with tail
+    //  tail->next=newnode;   
+    // // step 3: update tail
+    // tail=newnode;
+}
+
+void print(Node* head){
+    // using new temporary node
+    Node* temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+
+int main(){
+    Node* head=NULL;
+    Node* tail=NULL;
+    insertathead(head,tail,20);
+    insertathead(head,tail,30);
+    insertathead(head,tail,50);
+    insertattail(tail,head,80);
+    print(head);
+    
+    return 0;
+}
