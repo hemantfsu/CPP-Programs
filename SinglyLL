@@ -1,0 +1,121 @@
+// insert at head in the linked list -----
+
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node{
+    int data;
+    Node *next;
+    
+    // constructor
+    Node(int x){
+        data=x;
+        next=NULL;
+    }
+};
+
+Node *insertAtBegin(Node *head,int x){
+    Node *temp=new Node(x);
+    temp->next=head;
+    return temp;
+}
+
+Node *insertatpos(Node *head, int pos, int x){
+    Node *temp=new Node(x);
+    Node *curr=head;
+    if(pos==0){
+        temp->next=head;
+        return temp;
+    }
+    for(int i=0; i<=pos-2 && curr!=NULL; i++){
+        curr=curr->next;
+    }
+    temp->next=curr->next;
+    curr->next=temp;
+    return head;
+}   
+
+Node *deletefirst(Node *head){
+    Node *curr=head;
+    if(head==NULL){
+        cout<<"linked list already empty"<<endl;
+        return NULL;
+    }
+    else{
+        head=curr->next;
+        delete curr;
+        return head;
+    }
+}
+
+Node *deletelast(Node *head){
+    Node *curr=head;
+    Node *temp;
+    if(head==NULL){
+        return NULL;
+    }
+    if(curr->next==NULL){
+        delete curr;
+        return NULL;
+    }
+    while(curr->next->next!=NULL){
+        curr=curr->next;
+    }
+    temp=curr->next;
+    curr->next=NULL;
+    delete temp;
+    return head;
+}
+Node *deleteatpos(Node *head,int pos){
+    Node *curr=head;
+    
+    if(pos==0){
+        head=curr->next;
+        delete curr;
+        return head;
+    }
+    Node *temp;
+    for(int i=0; i<=pos-2 && curr!=NULL; i++){
+        curr=curr->next;
+    }
+    temp=curr->next;
+    curr->next=temp->next;
+    delete temp;
+    return head;
+}
+void printList(Node *head){
+    while(head!=NULL){
+        cout<<head->data<<" ";
+        head=head->next;
+    }
+}
+
+Node *search(Node *head,int data){
+    Node *curr=head;
+    while(curr->next!=NULL && curr->data!=data){
+        curr=curr->next;
+    }
+    if(curr->data==data){
+        cout<<"value found";
+    }
+    else{
+        cout<<"value not found";
+    }
+    return 0;
+}
+
+
+int main() {
+    Node *head=NULL;
+    head=insertAtBegin(head,30);
+    head=insertatpos(head,1,40);
+    head=insertatpos(head,2,50);
+    // head=deletefirst(head);
+    // head=deletelast(head);
+    // head=deletelast(head);
+    // head=deletefirst(head);
+    head=deleteatpos(head,0);
+    head=search(head,40);
+    printList(head);
+    return 0;
+}
